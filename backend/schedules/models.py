@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
 
+from users.models import User
 from utils.base_model import TimeStampedModel
 from utils.db_constants import ScheduleInterval
 

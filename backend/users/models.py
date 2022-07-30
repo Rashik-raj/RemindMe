@@ -1,8 +1,32 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from nepali_address.models import Province, District, Municipality
 
+from users.managers.user import UserManager
 from utils.validators import phone_regex
+
+
+class User(AbstractUser):
+    USERNAME_FIELD = 'email'
+    email = models.EmailField(unique=True)
+    REQUIRED_FIELDS = []  # removes email from REQUIRED_FIELDS
+
+    def save(self, *args, **kwargs):
+        if not self.username:
+            self.username = self.email.split("@")[0]
+        super().save(*args, **kwargs)
+
+    objects = UserManager()
+
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
+    def is_owner(self, user):
+        return self == user
+
+    def create_profile(self):
+        return Profile.objects.get_or_create(user=self)
 
 
 class Profile(models.Model):
@@ -25,3 +49,6 @@ class Profile(models.Model):
 
     def get_phone(self):
         return f"+977-{self.phone}"
+
+    def is_owner(self, user):
+        return self.user == user
