@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission
 
 
-class ReminMePermission(BasePermission):
+class RemindMePermission(BasePermission):
     def has_permission(self, request, view):
         return True
 
@@ -9,9 +9,9 @@ class ReminMePermission(BasePermission):
         return True if request.user.is_superuser else obj.is_owner(request.user)
 
 
-class ProfilePermission(ReminMePermission):
+class ProfilePermission(RemindMePermission):
     def has_permission(self, request, view):
-        if view.action == "create":
+        if view.action in ("create", "destroy"):
             return False
         if request.user.is_superuser:
             return True
@@ -20,8 +20,10 @@ class ProfilePermission(ReminMePermission):
         return request.user.is_authenticated
 
 
-class UserPermission(ReminMePermission):
+class UserPermission(RemindMePermission):
     def has_permission(self, request, view):
+        if view.action == "destroy":
+            return False
         if request.user.is_superuser:
             return True
         if view.action == "create":

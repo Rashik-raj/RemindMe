@@ -2,9 +2,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from users.models import User, Profile
-from utils.permissions import UserPermission
+from users.models import User
 from users.serializers.user import UserDetailSerializer, UserCreateSerializer
+from utils.permissions import UserPermission
 
 
 class UserViewSet(ModelViewSet):
