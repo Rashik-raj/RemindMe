@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 from schedules.models import Schedule
+from users.models import User
 from utils.base_model import TimeStampedModel
 from utils.db_constants import EmailStatus
 
