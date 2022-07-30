@@ -6,10 +6,11 @@ from users.models import User, Profile
 class ProfileDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        exclude = ('user', )
+        exclude = ('user',)
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
+    profile = ProfileDetailSerializer(read_only=True)
 
     class Meta:
         model = User

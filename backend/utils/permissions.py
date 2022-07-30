@@ -29,3 +29,10 @@ class UserPermission(RemindMePermission):
         if view.action == "create":
             return True
         return request.user.is_authenticated
+
+
+class SchedulePermission(RemindMePermission):
+    def has_permission(self, request, view):
+        if view.action == "list" and request.query_params.get('all', None):
+            return request.user.is_superuser
+        return request.user.is_authenticated
