@@ -16,7 +16,6 @@ class Email(TimeStampedModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='schedule_emails')
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     status = models.CharField(choices=EmailStatus.choices, max_length=13, default=EmailStatus.INITIATED)
-    response = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Email of schedule {self.schedule.name} of {self.user}"
