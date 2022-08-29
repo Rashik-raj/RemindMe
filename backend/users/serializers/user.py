@@ -12,7 +12,7 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
 
     def get_profile_url(self, obj):
         request = self.context.get("request")
-        return request.build_absolute_uri(obj.profile.url)
+        return request.build_absolute_uri(obj.profile.url) if obj.profile else None
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
