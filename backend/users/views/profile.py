@@ -1,9 +1,10 @@
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
 from users.models import Profile
-from utils.permissions import ProfilePermission
 from users.serializers.user import ProfileDetailSerializer
+from utils.permissions import ProfilePermission
 
 
 class ProfileViewSet(ModelViewSet):
@@ -14,6 +15,5 @@ class ProfileViewSet(ModelViewSet):
     @action(detail=False, methods=['GET'], url_path='my-profile', url_name='my-profile')
     def my_profile(self, request):
         profile = Profile.objects.get(user=request.user)
-        serializer = ProfileDetailSerializer(profile, context={"request": request})
+        serializer = self.get_serializer(profile)
         return Response(serializer.data)
-
