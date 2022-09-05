@@ -25,7 +25,7 @@ class ScheduleViewSet(ModelViewSet):
         return serializer.save(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
-        serializer = ScheduleSerializer(data=request.data)
+        serializer = ScheduleSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)

@@ -10,8 +10,7 @@ export default function Dashboard() {
     const [selectedMenu, setSelectedMenu] = useState("Schedules");
     const [profile, setProfile] = useState(null);
     const [openProfile, setOpenProfile] = useState(false);
-    const handleOpenProfile = () => setOpenProfile(true);
-    const handleCloseProfile = () => setOpenProfile(false);
+    const handleOpenProfile = () => setOpenProfile(!openProfile);
 
     const handleMenuClick = (event, menu) => {
         setSelectedMenu(menu);
@@ -36,10 +35,10 @@ export default function Dashboard() {
 
     return (<React.Fragment>
         <NavBar selectedMenu={selectedMenu} handleMenuClick={handleMenuClick} profile={profile}
-                handleOpenProfile={handleOpenProfile} handleCloseProfile={handleCloseProfile}
+                handleOpenProfile={handleOpenProfile}
                 openProfile={openProfile}/>
         <Content selectedMenu={selectedMenu} handleMenuClick={handleMenuClick}/>
-        <Profile profile={profile} handleOpenProfile={handleOpenProfile} handleCloseProfile={handleCloseProfile}
+        <Profile profile={profile} handleOpenProfile={handleOpenProfile}
                  openProfile={openProfile} updateProfile={updateProfile}/>
     </React.Fragment>);
 }

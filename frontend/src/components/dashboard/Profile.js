@@ -72,7 +72,7 @@ export default function Profile(props) {
 
     const handleDateInputChange = (newValue) => {
         setFormValues({
-            ...formValues, dob: newValue,
+            ...formValues, dob: newValue.toISOString().split('T')[0],
         });
     }
 
@@ -107,7 +107,7 @@ export default function Profile(props) {
             if (res.status === 200) {
                 props.updateProfile(res.data);
                 toast.success("Profile updated successfully.");
-                props.handleCloseProfile();
+                props.handleOpenProfile();
             }
         }).catch(err => {
             toast.error("Error updating profile.");
@@ -117,7 +117,7 @@ export default function Profile(props) {
     return (<div>
         <Modal
             open={props.openProfile}
-            onClose={props.handleCloseProfile}
+            onClose={props.handleOpenProfile}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             closeAfterTransition
@@ -128,7 +128,7 @@ export default function Profile(props) {
         >
             <Fade in={props.openProfile}>
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h3" component="h2" alignItems={"center"}>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
                         Profile
                     </Typography>
                     <Box component={"form"} onSubmit={handleProfileUpdate} sx={{mt: 2}}>
@@ -140,7 +140,7 @@ export default function Profile(props) {
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DatePicker
                                         disableFuture
-                                        id="dob1"
+                                        id="dob"
                                         label="DOB"
                                         openTo="year"
                                         views={['year', 'month', 'day']}
@@ -149,7 +149,6 @@ export default function Profile(props) {
                                         renderInput={(params) => <TextField {...params} id="dob" fullWidth={true}
                                         />}
                                     />
-
                                 </LocalizationProvider>
                             </Box>
                         </Box>

@@ -39,11 +39,7 @@ const NavBar = (props) => {
         if (setting === 'Logout') {
             handleLogOut();
         } else if (setting === 'Profile') {
-            if (props.openProfile) {
-                props.handleCloseProfile();
-            } else {
-                props.handleOpenProfile();
-            }
+            props.handleOpenProfile();
         }
     };
 
