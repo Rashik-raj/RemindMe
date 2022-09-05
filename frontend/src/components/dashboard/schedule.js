@@ -78,7 +78,7 @@ export default function Schedule(props) {
         >
             <Fade in={props.openSchedule}>
                 <Box sx={style}>
-                    <Typography id="transition-modal-title" variant="h6" component="h2" alignItems={"center"}>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
                         Add Schedule
                     </Typography>
                     <Box component={"form"} onSubmit={handleAddSchedule} sx={{mt: 2}}>

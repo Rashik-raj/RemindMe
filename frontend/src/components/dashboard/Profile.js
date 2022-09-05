@@ -128,7 +128,7 @@ export default function Profile(props) {
         >
             <Fade in={props.openProfile}>
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h3" component="h2" alignItems={"center"}>
+                    <Typography id="transition-modal-title" variant="h6" component="h2">
                         Profile
                     </Typography>
                     <Box component={"form"} onSubmit={handleProfileUpdate} sx={{mt: 2}}>
