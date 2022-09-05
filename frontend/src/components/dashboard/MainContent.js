@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
 import React, {useEffect, useState} from "react";
-import {Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {DataGrid} from '@mui/x-data-grid';
 import axios from "axios";
 import {toast} from "react-toastify";
+import Schedule from "./schedule";
 
 
 export default function MainContent(props) {
@@ -11,6 +13,7 @@ export default function MainContent(props) {
     const [columns, setColumns] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [selectedRows, setSelectedRows] = useState([]);
+    const [openSchedule, setOpenSchedule] = useState(false);
 
     useEffect(() => {
         if (props.selectedMenu === "Schedules") {
@@ -62,9 +65,20 @@ export default function MainContent(props) {
         }
     }, [props.selectedMenu])
 
+    const handleOpenSchedule = () => setOpenSchedule(!openSchedule);
+
+
     return (
-        <Box flex={4} bgcolor={"#bbdefb"} height={"calc(100vh - 135px)"}><Typography variant="h5"
-                                                                                     m={2}>{props.selectedMenu}</Typography>
+        <Box flex={4} bgcolor={"#bbdefb"} height={"calc(100vh - 135px)"}>
+            <Typography variant="h5" m={2}>{props.selectedMenu} {props.selectedMenu === "Schedules" ?
+                <>
+                    <Button startIcon={<AddCircleOutlineIcon/>} variant={"outlined"} color={"success"}
+                            sx={{marginLeft: 2}} onClick={handleOpenSchedule}>
+                        Add Schedule
+                    </Button> <Schedule openSchedule={openSchedule} handleOpenSchedule={handleOpenSchedule}/>
+                </> : null
+                }
+            </Typography>
             <DataGrid
                 rows={rows}
                 columns={columns}
