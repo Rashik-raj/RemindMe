@@ -17,3 +17,5 @@
   - `python manage.py createsuperuser`
 - Run the server
   - `python manage.py runserver`
+- Run celery and beat
+  - `celery -A celery_app:app woker -B --loglevel=INFO`
