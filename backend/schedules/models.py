@@ -2,7 +2,6 @@ from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
 from users.models import User
 from utils.base_model import TimeStampedModel
 from utils.db_constants import ScheduleInterval
@@ -10,9 +9,9 @@ from utils.db_constants import ScheduleInterval
 
 class Schedule(TimeStampedModel):
     class Meta:
-        db_table = 'schedule'
-        verbose_name = 'Schedule'
-        verbose_name_plural = 'Schedules'
+        db_table = "schedule"
+        verbose_name = "Schedule"
+        verbose_name_plural = "Schedules"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -42,13 +41,13 @@ class Schedule(TimeStampedModel):
 
     def get_interval_dict(self):
         if self.interval == ScheduleInterval.ANNUALLY:
-            return {'years': 1}
+            return {"years": 1}
         elif self.interval == ScheduleInterval.SEMI_ANNUALLY:
-            return {'months': 6}
+            return {"months": 6}
         elif self.interval == ScheduleInterval.QUARTERLY:
-            return {'months': 3}
+            return {"months": 3}
         else:
-            return {'months': 1}
+            return {"months": 1}
 
     def is_owner(self, user):
         return self.user == user
@@ -60,7 +59,7 @@ class Schedule(TimeStampedModel):
             "schedule_description": self.description,
             "schedule_date": self.date,
         }
-        html_message = render_to_string('emails/schedule.html', email_context)
+        html_message = render_to_string("emails/schedule.html", email_context)
         message = strip_tags(html_message)
         subject = f"Schedule: {self.name} remainder"
         self.user.email_user(subject, message, html_message=html_message)

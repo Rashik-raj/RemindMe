@@ -1,5 +1,21 @@
 # Initial Setup
 ---
-- python manage.py migrate
-- python manage.py loaddata nepali_address
-- python manage.py runserver
+- Add **.env** file and add all necessary env variables, you can take reference from **example.env** file
+- Create virtual environment **env**
+  - `python -m venv env`
+- Activate virtualenv
+  - `source env/bin/activate`
+- Install requirements
+  - `pip install -r requirements.txt`
+- Migrate all the tables
+  - `python manage.py migrate`
+- Load data to database
+  - `python manage.py loaddata nepali_address`
+- Collect staticfiles
+  - `python manage.py collectstatic`
+- Create superuser
+  - `python manage.py createsuperuser`
+- Run the server
+  - `python manage.py runserver`
+- Run celery and beat
+  - `celery -A celery_app:app woker -B --loglevel=INFO`
